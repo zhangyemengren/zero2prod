@@ -13,3 +13,8 @@
 ### curl
 curl -i -X POST -d 'email=thomas_mann2@hotmail.com&name=Tom2' \
 http://127.0.0.1:8000/subscriptions
+
+curl http://127.0.0.1:8000/health_check
+
+### 构建docker镜像
+docker build --tag zero2prod --file Dockerfile .

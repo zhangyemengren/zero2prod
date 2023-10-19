@@ -1,9 +1,9 @@
-use zero_to_prod_actix_web::{startup::run, configuration::get_configuration};
+use zero2prod::{startup::run, configuration::get_configuration};
 use std::net::TcpListener;
 use sqlx::{Connection, Executor, PgConnection, PgPool};
 use uuid::Uuid;
-use zero_to_prod_actix_web::configuration::DatabaseSettings;
-use zero_to_prod_actix_web::telemetry::{get_subscriber, init_subscriber};
+use zero2prod::configuration::DatabaseSettings;
+use zero2prod::telemetry::{get_subscriber, init_subscriber};
 use once_cell::sync::Lazy;
 use secrecy::ExposeSecret;
 
