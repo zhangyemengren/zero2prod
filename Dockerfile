@@ -1,17 +1,25 @@
-# We use the latest Rust stable release as base image
-# Builder stage
-FROM rust:1.73.0 AS builder
-
+FROM lukemathwalker/cargo-chef:latest-rust-1.73.0 as chef
 WORKDIR /app
 # Install the required system dependencies for our linking configuration
 RUN apt update && apt install lld clang -y
 # Copy all files from our working environment to our Docker image
+FROM chef as planner
+COPY . .
+# Compute a lock-like file for our project
+RUN cargo chef prepare --recipe-path recipe.json
+
+FROM chef as builder
+COPY --from=planner /app/recipe.json recipe.json
+# Build our project dependencies, not our application!
+RUN cargo chef cook --release --recipe-path recipe.json
+# Up to this point, if our dependency tree stays the same,
+# all layers should be cached.
 COPY . .
 # sqlx offline mode
 ENV SQLX_OFFLINE true
 # Let's build our binary!
 # We'll use the release profile to make it faaaast
-RUN cargo build --release
+RUN cargo build --release --bin zero2prod
 
 
 FROM debian:bullseye-slim AS runtime
