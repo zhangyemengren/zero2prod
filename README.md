@@ -20,3 +20,5 @@ curl http://127.0.0.1:8000/health_check
 docker build --tag zero2prod --file Dockerfile .
 #### 查看镜像信息
 docker images zero2prod
+#### run
+docker run -p 8000:8000 zero2prod
