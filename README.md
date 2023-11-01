@@ -1,7 +1,7 @@
 ## 环境信息
 - docker
   - 安装docker desktop
-  - 下载postgres官方镜像
+  - 下载postgres官方镜像(docker pull postgres)
 - sqlx cli
   - cargo install sqlx-cli --no-default-features --features native-tls,postgres
 ## scripts 文件夹下的脚本
