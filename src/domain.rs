@@ -16,12 +16,18 @@ impl SubscriberName{
             forbidden_characters.contains(&g)
         });
          if is_empty_or_whitespace || is_too_long || contain_forbidden_characters {
-             panic!("Invalid subscriber name.")
+             panic!("{} is not a valid subscriber name.", s)
          } else {
              Self(s)
          }
     }
     pub fn inner_ref(&self) -> &str {
+        &self.0
+    }
+}
+
+impl AsRef<str> for SubscriberName{
+    fn as_ref(&self) -> &str {
         &self.0
     }
 }
